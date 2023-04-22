@@ -1,6 +1,4 @@
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Blog.Models;
+namespace BlogV2.Models;
 
 public class Role : BaseModel
 {

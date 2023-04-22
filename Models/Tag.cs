@@ -1,5 +1,5 @@
 
-namespace Blog.Models;
+namespace BlogV2.Models;
 
 public class Tag : BaseModel
 {
