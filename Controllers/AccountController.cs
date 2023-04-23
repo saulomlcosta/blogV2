@@ -1,4 +1,8 @@
 ﻿using blogV2.Services;
+using blogV2.ViewModels;
+using BlogV2.Extensions;
+using BlogV2.Models;
+using BlogV2.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,6 +16,22 @@ namespace blogV2.Controllers
         public AccountController(TokenService tokenService)
         {
             _tokenService = tokenService;
+        }
+
+        [HttpPost("v1/account")]
+        public IActionResult Post(
+            [FromBody]RegisterViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(new ResultViewModel<string>(ModelState.GetErrors()));
+
+            var user = new User
+            {
+                Name = model.Name,
+                Email = model.Email,
+                Slug = model.Email.Replace("@", "-").Replace(".", "-")
+            };
+
         }
 
         [HttpPost("v1/login")]
