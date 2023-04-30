@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace blogV2.Migrations
 {
     [DbContext(typeof(BlogDataContext))]
-    [Migration("20230421232118_CreateDatabase")]
-    partial class CreateDatabase
+    [Migration("20230430142045_CreateDatabaseNew")]
+    partial class CreateDatabaseNew
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace blogV2.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Blog.Models.Category", b =>
+            modelBuilder.Entity("BlogV2.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -53,7 +53,7 @@ namespace blogV2.Migrations
                     b.ToTable("Category", (string)null);
                 });
 
-            modelBuilder.Entity("Blog.Models.Post", b =>
+            modelBuilder.Entity("BlogV2.Models.Post", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -109,7 +109,7 @@ namespace blogV2.Migrations
                     b.ToTable("Post", (string)null);
                 });
 
-            modelBuilder.Entity("Blog.Models.Role", b =>
+            modelBuilder.Entity("BlogV2.Models.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -130,7 +130,7 @@ namespace blogV2.Migrations
                     b.ToTable("Role");
                 });
 
-            modelBuilder.Entity("Blog.Models.Tag", b =>
+            modelBuilder.Entity("BlogV2.Models.Tag", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -151,7 +151,7 @@ namespace blogV2.Migrations
                     b.ToTable("Tag");
                 });
 
-            modelBuilder.Entity("Blog.Models.User", b =>
+            modelBuilder.Entity("BlogV2.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -160,15 +160,15 @@ namespace blogV2.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Bio")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(160)
+                        .HasColumnType("VARCHAR")
+                        .HasColumnName("Email");
 
                     b.Property<string>("Image")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -179,7 +179,9 @@ namespace blogV2.Migrations
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("VARCHAR")
+                        .HasColumnName("PasswordHash");
 
                     b.Property<string>("Slug")
                         .IsRequired()
@@ -225,16 +227,16 @@ namespace blogV2.Migrations
                     b.ToTable("UserRole");
                 });
 
-            modelBuilder.Entity("Blog.Models.Post", b =>
+            modelBuilder.Entity("BlogV2.Models.Post", b =>
                 {
-                    b.HasOne("Blog.Models.User", "Author")
+                    b.HasOne("BlogV2.Models.User", "Author")
                         .WithMany("Posts")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK_Post_Author");
 
-                    b.HasOne("Blog.Models.Category", "Category")
+                    b.HasOne("BlogV2.Models.Category", "Category")
                         .WithMany("Posts")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -248,14 +250,14 @@ namespace blogV2.Migrations
 
             modelBuilder.Entity("PostTag", b =>
                 {
-                    b.HasOne("Blog.Models.Tag", null)
+                    b.HasOne("BlogV2.Models.Tag", null)
                         .WithMany()
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK_PostTag_PostId");
 
-                    b.HasOne("Blog.Models.Post", null)
+                    b.HasOne("BlogV2.Models.Post", null)
                         .WithMany()
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -265,14 +267,14 @@ namespace blogV2.Migrations
 
             modelBuilder.Entity("UserRole", b =>
                 {
-                    b.HasOne("Blog.Models.Role", null)
+                    b.HasOne("BlogV2.Models.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK_UserRole_RoleId");
 
-                    b.HasOne("Blog.Models.User", null)
+                    b.HasOne("BlogV2.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -280,12 +282,12 @@ namespace blogV2.Migrations
                         .HasConstraintName("FK_UserRole_UserId");
                 });
 
-            modelBuilder.Entity("Blog.Models.Category", b =>
+            modelBuilder.Entity("BlogV2.Models.Category", b =>
                 {
                     b.Navigation("Posts");
                 });
 
-            modelBuilder.Entity("Blog.Models.User", b =>
+            modelBuilder.Entity("BlogV2.Models.User", b =>
                 {
                     b.Navigation("Posts");
                 });

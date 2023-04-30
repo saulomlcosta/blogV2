@@ -61,6 +61,7 @@ public class UserMap : IEntityTypeConfiguration<User>
                 user => user
                     .HasOne<User>()
                     .WithMany()
+                    .HasForeignKey("UserId")
                     .HasConstraintName("FK_UserRole_UserId")
                     .OnDelete(DeleteBehavior.Cascade));
     }
