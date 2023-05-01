@@ -1,11 +1,11 @@
 using System.Security.Claims;
 using BlogV2.Models;
 
-namespace Blog.Extensions
+namespace BlogV2.Extensions
 {
     public static class RoleClaimsExtension
     {
-        public static IEnumerable<Claim> Get(this User user)
+        public static IEnumerable<Claim> GetClaims(this User user)
         {
             var result = new List<Claim>
             {

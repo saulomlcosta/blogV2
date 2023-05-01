@@ -1,15 +1,14 @@
-﻿using blogV2.Services;
-using blogV2.ViewModels;
+﻿using BlogV2.Services;
+using BlogV2.ViewModels;
 using BlogV2.Data;
 using BlogV2.Extensions;
 using BlogV2.Models;
-using BlogV2.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SecureIdentity.Password;
 
-namespace blogV2.Controllers
+namespace BlogV2.Controllers
 {
     [ApiController]
     public class AccountController : ControllerBase
@@ -72,6 +71,7 @@ namespace blogV2.Controllers
 
             var user = await _context
                 .Users
+                .Include("Roles")
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Email == model.Email);
 

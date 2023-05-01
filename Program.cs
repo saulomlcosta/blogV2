@@ -1,5 +1,5 @@
-using blogV2;
-using blogV2.Services;
+using BlogV2;
+using BlogV2.Services;
 using BlogV2.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;

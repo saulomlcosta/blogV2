@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace blogV2.ViewModels
+namespace BlogV2.ViewModels
 {
     public class RegisterViewModel
     {

@@ -8,14 +8,18 @@ public class UserMap : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
+        // Tabela
         builder.ToTable("User");
 
+        // Chave Primária
         builder.HasKey(x => x.Id);
 
+        // Identity
         builder.Property(x => x.Id)
             .ValueGeneratedOnAdd()
             .UseIdentityColumn();
 
+        // Propriedades
         builder.Property(x => x.Name)
             .IsRequired()
             .HasColumnName("Name")
@@ -32,9 +36,9 @@ public class UserMap : IEntityTypeConfiguration<User>
             .HasMaxLength(160);
 
         builder.Property(x => x.Image)
-             .IsRequired(false);
+            .IsRequired(false);
 
-        builder.Property(x => x.PasswordHash)
+        builder.Property(x => x.PasswordHash).IsRequired()
             .HasColumnName("PasswordHash")
             .HasColumnType("VARCHAR")
             .HasMaxLength(255);
@@ -45,10 +49,14 @@ public class UserMap : IEntityTypeConfiguration<User>
             .HasColumnType("VARCHAR")
             .HasMaxLength(80);
 
-        builder.HasIndex(x => x.Slug, "IX_User_Slug")
+        // Índices
+        builder
+            .HasIndex(x => x.Slug, "IX_User_Slug")
             .IsUnique();
 
-        builder.HasMany(x => x.Roles)
+        // Relacionamentos
+        builder
+            .HasMany(x => x.Roles)
             .WithMany(x => x.Users)
             .UsingEntity<Dictionary<string, object>>(
                 "UserRole",

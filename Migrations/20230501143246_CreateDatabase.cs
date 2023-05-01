@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace blogV2.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateDatabaseNew : Migration
+    public partial class CreateDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -108,11 +108,11 @@ namespace blogV2.Migrations
                 columns: table => new
                 {
                     RoleId = table.Column<int>(type: "int", nullable: false),
-                    UsersId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserRole", x => new { x.RoleId, x.UsersId });
+                    table.PrimaryKey("PK_UserRole", x => new { x.RoleId, x.UserId });
                     table.ForeignKey(
                         name: "FK_UserRole_RoleId",
                         column: x => x.RoleId,
@@ -121,7 +121,7 @@ namespace blogV2.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserRole_UserId",
-                        column: x => x.UsersId,
+                        column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -185,9 +185,9 @@ namespace blogV2.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserRole_UsersId",
+                name: "IX_UserRole_UserId",
                 table: "UserRole",
-                column: "UsersId");
+                column: "UserId");
         }
 
         /// <inheritdoc />

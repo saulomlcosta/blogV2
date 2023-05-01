@@ -1,4 +1,4 @@
-﻿namespace blogV2
+﻿namespace BlogV2
 {
     public static class Configuration
     {
