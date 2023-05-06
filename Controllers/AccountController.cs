@@ -14,13 +14,15 @@ namespace BlogV2.Controllers
     public class AccountController : ControllerBase
     {
         private readonly TokenService _tokenService;
+        private readonly EmailService _emailService;
         private readonly BlogDataContext _context;
 
 
-        public AccountController(TokenService tokenService, BlogDataContext context)
+        public AccountController(TokenService tokenService, BlogDataContext context, EmailService emailService)
         {
             _tokenService = tokenService;
             _context = context;
+            _emailService = emailService;
         }
 
         [HttpPost("v1/accounts")]
@@ -44,6 +46,13 @@ namespace BlogV2.Controllers
             {
                 await _context.Users.AddAsync(user);
                 await _context.SaveChangesAsync();
+
+                _emailService.Send(
+                    user.Name,
+                    user.Email,
+                    "Bem vindo ao blog!",
+                    $"Sua senha é <strong>{password}</strong"
+                );
 
                 return Ok(new ResultViewModel<dynamic>(new
                 {
