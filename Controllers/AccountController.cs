@@ -86,7 +86,7 @@ namespace BlogV2.Controllers
                 var token = _tokenService.GenerateToken(user);
                 return Ok(new ResultViewModel<string>(token, null));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return StatusCode(500, new ResultViewModel<string>("05X04 - Falha interna no servidor"));
             }

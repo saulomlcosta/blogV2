@@ -20,7 +20,7 @@ namespace BlogV2.Attributes
                 return;
             }
 
-            if (!Configuration.ApiKey.Equals(extractedApiKey))
+            if (!Configuration.ApiKeyValue.Equals(extractedApiKey))
             {
                 context.Result = new ContentResult()
                 {
