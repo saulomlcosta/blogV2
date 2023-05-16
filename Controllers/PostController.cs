@@ -34,7 +34,7 @@ namespace BlogV2.Controllers
                     Category = x.Category.Name,
                     Author = $"{x.Author.Name} ({x.Author.Email})"
                 })
-                .Skip(Page)
+                .Skip(Page * PageSize)
                 .Take(PageSize)
                 .OrderByDescending(x => x.LastUpdateDate)
                 .ToListAsync();
