@@ -13,7 +13,6 @@ ConfigureServices(builder);
 
 var app = builder.Build();
 LoadConfiguration(app);
-
 app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();
@@ -52,6 +51,7 @@ void ConfigureAuthentication(WebApplicationBuilder builder)
 
 void ConfigureMvc(WebApplicationBuilder builder)
 {
+    builder.Services.AddMemoryCache();
     builder.Services
         .AddControllers()
         .ConfigureApiBehaviorOptions(
