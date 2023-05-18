@@ -15,11 +15,19 @@ ConfigureServices(builder);
 
 var app = builder.Build();
 LoadConfiguration(app);
-app.UseStaticFiles();
+
+app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseResponseCompression();
 app.MapControllers();
+app.UseStaticFiles();
+app.UseResponseCompression();
+
+if (app.Environment.IsDevelopment())
+{
+    Console.WriteLine("I'M IN DEVELOPMENT!");
+}
+
 app.Run();
 
 void LoadConfiguration(WebApplication app)
