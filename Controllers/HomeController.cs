@@ -7,7 +7,14 @@ namespace BlogV2.Controllers
     public class HomeController : ControllerBase
     {
         [HttpGet("")]
-        public IActionResult Get()
-            => Ok();
+        public IActionResult Get(
+            [FromServices] IConfiguration config)
+        {
+            var env = config.GetValue<string>("Environment");
+            return Ok(new
+            {
+                Environment = env
+            });
+        }
     }
 }
