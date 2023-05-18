@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.ResponseCompression;
 using System.IO.Compression;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigureAuthentication(builder);
@@ -87,7 +88,11 @@ void ConfigureMvc(WebApplicationBuilder builder)
 
 void ConfigureServices(WebApplicationBuilder builder)
 {
-    builder.Services.AddDbContext<BlogDataContext>();
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    builder.Services.AddDbContext<BlogDataContext>(
+        options =>
+            options.UseSqlServer(connectionString));
+
     builder.Services.AddTransient<TokenService>();
     builder.Services.AddTransient<EmailService>();
 }
