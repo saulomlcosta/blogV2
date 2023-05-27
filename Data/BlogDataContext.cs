@@ -1,5 +1,5 @@
 using BlogV2.Models;
-using Data.Mappings;
+using BlogV2.Data.Mappings;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlogV2.Data;
