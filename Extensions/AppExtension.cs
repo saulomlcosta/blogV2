@@ -14,9 +14,9 @@ public static class AppExtension
 {
     public static void LoadConfiguration(this WebApplicationBuilder builder)
     {
-        Configuration.JwtKey = builder.Configuration.GetValue<string>("JwtKey");
-        Configuration.ApiKeyName = builder.Configuration.GetValue<string>("ApiKeyName");
-        Configuration.ApiKeyValue = builder.Configuration.GetValue<string>("ApiKeyValue");
+        Configuration.JwtKey = builder.Configuration.GetValue<string>("JwtKey")!;
+        Configuration.ApiKeyName = builder.Configuration.GetValue<string>("ApiKeyName")!;
+        Configuration.ApiKeyValue = builder.Configuration.GetValue<string>("ApiKeyValue")!;
 
         var smtp = new Configuration.SmtpConfiguration();
         builder.Configuration.GetSection("Smtp").Bind(smtp);

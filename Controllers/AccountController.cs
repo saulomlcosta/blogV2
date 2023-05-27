@@ -122,9 +122,10 @@ namespace BlogV2.Controllers
                 return StatusCode(500, new ResultViewModel<string>("05X04 - Falha interna no servidor"));
             }
 
+            var email = User.Identity?.Name;
             var user = await _context
                 .Users
-                .FirstOrDefaultAsync(x => x.Email == User.Identity.Name);
+                .FirstOrDefaultAsync(x => x.Email == email);
 
             if (user == null)
                 return NotFound(new ResultViewModel<User>("Usuário não encontrado"));
@@ -143,17 +144,5 @@ namespace BlogV2.Controllers
 
             return Ok(new ResultViewModel<string>("Imagem alterada com sucesso!", null));
         }
-
-        [Authorize(Roles = "user")]
-        [HttpGet("v1/user")]
-        public IActionResult GetUser() => Ok(User.Identity.Name);
-
-        [Authorize(Roles = "author")]
-        [HttpGet("v1/author")]
-        public IActionResult GetAuthor() => Ok(User.Identity.Name);
-
-        [Authorize(Roles = "admin")]
-        [HttpGet("v1/admin")]
-        public IActionResult GetAdmin() => Ok(User.Identity.Name);
     }
 }

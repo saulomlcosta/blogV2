@@ -13,7 +13,7 @@ namespace BlogV2.Controllers
     public class CategoryController : ControllerBase
     {
         [HttpGet("v1/categories")]
-        public async Task<IActionResult> GetAsync(
+        public IActionResult GetAsync(
             [FromServices] IMemoryCache cache,
             [FromServices] BlogDataContext context)
         {
@@ -33,7 +33,7 @@ namespace BlogV2.Controllers
             }
         }
 
-        private List<Category> GetCategories(BlogDataContext context)
+        private static List<Category> GetCategories(BlogDataContext context)
         {
             return context.Categories.ToList();
         }
