@@ -4,15 +4,14 @@ namespace BlogV2.Models;
 
 public class User
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public string Email { get; set; }
-    [JsonIgnore]
-    public string PasswordHash { get; set; }
-    public string Image { get; set; }
-    public string Slug { get; set; }
-    public string Bio { get; set; }
+    public int Id { get; set; } = 0;
+    public string Name { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public string PasswordHash { get; set; } = string.Empty;
+    public string Image { get; set; } = string.Empty;
+    public string Slug { get; set; } = string.Empty;
+    public string Bio { get; set; } = string.Empty;
 
-    public IList<Post> Posts { get; set; }
-    public IList<Role> Roles { get; set; }
+    public ICollection<Post> Posts { get; set; } = new List<Post>();
+    public ICollection<Role> Roles { get; set; } = new List<Role>();
 }
